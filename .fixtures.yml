@@ -1,0 +1,10 @@
+fixtures:
+  symlinks:
+    sumologic: "#{source_dir}"
+  forge_modules:
+    stdlib:
+      repo: puppetlabs/stdlib
+      ref: 4.12.0
+    staging:
+      repo: puppet/staging
+      ref: 1.0.6
