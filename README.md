@@ -47,7 +47,7 @@ See the parameter reference below for more configuration.
 ### Classes
 
 #### Public classes
-* [`sumologic`](#sumologic): Installs and configures a sumo logic collector
+* [`sumologic`](#sumologic-1): Installs and configures a sumo logic collector
 
 ### `sumologic`
 
