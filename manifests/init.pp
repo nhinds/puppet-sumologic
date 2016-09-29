@@ -60,7 +60,7 @@ class sumologic(
   }
   validate_string($accessid, $accesskey, $user, $collector_name, $installer_url)
   validate_absolute_path($install_dir, $installer_file)
-  validate_boolean($manage_user, $clobber, $ephemeral)
+  validate_bool($manage_user, $clobber, $ephemeral)
 
   if ($manage_user) {
     user { $user:
