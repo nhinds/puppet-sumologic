@@ -93,6 +93,9 @@ The file to store the installer in once it has been downloaded. Defaults to
 
 Only installs the collector, does not manage sources, etc.
 
+Does not modify settings (e.g. collector name, user) if they change after the
+initial installation.
+
 Tested on Ubuntu.
 
 ## Development

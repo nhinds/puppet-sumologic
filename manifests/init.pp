@@ -83,4 +83,10 @@ class sumologic(
   }
   contain sumologic::install
 
+  service { collector:
+    ensure  => running,
+    enable  => true,
+    require => Class['sumologic::install'],
+  }
+
 }

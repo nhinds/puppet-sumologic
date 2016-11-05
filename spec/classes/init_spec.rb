@@ -27,6 +27,13 @@ describe 'sumologic' do
         .with_installer_file('/opt/sumo-installer.sh')
     end
 
+    it 'should ensure the collector service is enabled and running' do
+      should contain_service('collector')
+        .with_enable(true)
+        .with_ensure('running')
+        .that_requires('Class[Sumologic::Install]')
+    end
+
     context 'with manage_user=false' do
       let(:params) { super().merge(manage_user: false) }
 
