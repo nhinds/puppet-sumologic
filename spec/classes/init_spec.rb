@@ -31,6 +31,7 @@ describe 'sumologic' do
       should contain_service('collector')
         .with_enable(true)
         .with_ensure('running')
+        .with_provider('init')
         .that_requires('Class[Sumologic::Install]')
     end
 
@@ -43,7 +44,7 @@ describe 'sumologic' do
     context 'with non-default parameters' do
       let(:params) do
         super().merge(user: 'bob', clobber: true, ephemeral: true, collector_name: 'special', install_dir: '/usr/local/SumoCollector',
-                      installer_url: 'https://example.com/installer.sh', installer_file: '/tmp/sumo64.sh')
+                      installer_url: 'https://example.com/installer.sh', installer_file: '/tmp/sumo64.sh', service_provider: 'debian')
       end
 
       it 'should create the specified user' do
@@ -61,6 +62,10 @@ describe 'sumologic' do
           .with_install_dir('/usr/local/SumoCollector')
           .with_installer_url('https://example.com/installer.sh')
           .with_installer_file('/tmp/sumo64.sh')
+      end
+
+      it 'should use the service provider to manage the service' do
+        should contain_service('collector').with_provider('debian')
       end
 
       context 'with manage_user=false' do

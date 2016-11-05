@@ -89,6 +89,17 @@ Defaults to `'https://collectors.sumologic.com/rest/download/linux/64'`
 The file to store the installer in once it has been downloaded. Defaults to
 `'/opt/sumo-installer.sh'`.
 
+##### `service_provider`
+The puppet provider used to manage the collector service. The module will
+ensure the service is running. If the provider supports enabling services for
+automatic startup, the collector service will also be enabled.
+
+Note that because the collector service starts itself during installation,
+providers which do not allow services to be started externally (such as
+systemd) cannot be used.
+
+Defaults to `'init'`, which does not support enabling services.
+
 ## Limitations
 
 Only installs the collector, does not manage sources, etc.

@@ -38,22 +38,27 @@
 # * `installer_file`
 # The file to store the installer in once it has been downloaded. Defaults to '/opt/sumo-installer.sh'.
 #
+# * `service_provider`
+# The puppet provider used to manage the collector service.
+# Defaults to 'init'.
+#
 # Copyright
 # ---------
 #
 # Copyright 2016 Nicholas Hinds, unless otherwise noted.
 #
 class sumologic(
-  $accessid       = undef,
-  $accesskey      = undef,
-  $user           = 'sumo',
-  $manage_user    = true,
-  $clobber        = false,
-  $ephemeral      = false,
-  $collector_name = $::fqdn,
-  $install_dir    = '/opt/SumoCollector',
-  $installer_url  = 'https://collectors.sumologic.com/rest/download/linux/64',
-  $installer_file = '/opt/sumo-installer.sh',
+  $accessid         = undef,
+  $accesskey        = undef,
+  $user             = 'sumo',
+  $manage_user      = true,
+  $clobber          = false,
+  $ephemeral        = false,
+  $collector_name   = $::fqdn,
+  $install_dir      = '/opt/SumoCollector',
+  $installer_url    = 'https://collectors.sumologic.com/rest/download/linux/64',
+  $installer_file   = '/opt/sumo-installer.sh',
+  $service_provider = 'init',
 ) {
   if ($accessid == undef or $accesskey == undef) {
     fail('accessid and accesskey are required')
@@ -84,9 +89,10 @@ class sumologic(
   contain sumologic::install
 
   service { collector:
-    ensure  => running,
-    enable  => true,
-    require => Class['sumologic::install'],
+    ensure   => running,
+    enable   => true,
+    provider => $service_provider,
+    require  => Class['sumologic::install'],
   }
 
 }
